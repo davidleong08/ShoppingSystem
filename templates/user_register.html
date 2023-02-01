@@ -1,0 +1,66 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <title>用户注册</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <form novalidate action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.username.id_for_label }}" class="form-label">{{ form_obj.username.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.username }}
+                    <span class="help-block">{{ form_obj.errors.username.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.password.id_for_label }}" class="form-label">
+                    {{ form_obj.password.label }}
+                </label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.password }}
+                    <span class="help-block">{{ form_obj.errors.password.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.password.id_for_label }}" class="form-label">
+                    {{ form_obj.re_password.label }}
+                </label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.re_password }}
+                </div>
+                <span class="help-block">{{ form_obj.errors.re_password.0 }}</span>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Email</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.email }}
+                    <span class="help-block">{{ form_obj.errors.email.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.mobile.id_for_label }}">{{ form_obj.mobile.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.mobile }}
+                    <span class="help-block">{{ form_obj.errors.mobile.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.vendor.id_for_label }}">{{ form_obj.vendor.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.vendor }}
+                </div>
+            </div>
+            <div class="col-8">
+                <label for="agreeTerms">
+                    {{ info }}
+                </label>
+            </div>
+            <div class="col-sm-10">
+              <input type="submit" class="btn btn-success" value="register">
+              <a href="{% url 'login' %}"  class="btn btn-success">login</a>
+            </div>
+        </form>
+    </div>
+</body>

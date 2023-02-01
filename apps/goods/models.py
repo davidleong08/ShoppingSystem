@@ -9,8 +9,6 @@ from django.db import models
 class ProductsCategory(models.Model):
     category_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
-    level = models.IntegerField()
-    sort = models.IntegerField()
     createDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -25,16 +23,29 @@ class ProductsCategory(models.Model):
 class Product(models.Model):
     product_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
-    market_price = models.DecimalField(max_digits=32, decimal_places=8)
     category = models.ForeignKey(ProductsCategory, on_delete=models.DO_NOTHING)
+    main_image = models.ImageField(upload_to='productImage')
     price = models.DecimalField(max_digits=32, decimal_places=8)
-    unit = models.CharField(max_length=10)
-    amount = models.IntegerField()
-    click_num = models.IntegerField()
-    fav_num = models.IntegerField()
-    goods_desc = models.TextField(max_length=5000)
-    main_image = models.CharField(max_length=5000)
-    stock_num = models.IntegerField()
+    property1 = models.CharField(max_length=100)
+    property2 = models.CharField(max_length=100)
+    sale_number = models.IntegerField()
+    sale_amount = models.IntegerField()
+    rating_choice = (
+        (0, "0"),
+        (1, "1"),
+        (2, "2"),
+        (3, "3"),
+        (4, "4"),
+        (5, "5"),
+    )
+    customer_rating = models.CharField(max_length=1, choices=rating_choice)
+    review = models.TextField()
+    temporary_status_choice = ((0, "out-of-stock"), (1, "normal"))
+    temporary_status = models.CharField(max_length=100, choices=temporary_status_choice)
+    photo1 = models.ImageField(upload_to="productImage")
+    photo2 = models.ImageField(upload_to="productImage")
+    photo3 = models.ImageField(upload_to="productImage")
+    photo4 = models.ImageField(upload_to="productImage")
     createDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -44,20 +55,3 @@ class Product(models.Model):
         verbose_name = 'product'
         verbose_name_plural = 'products'
         db_table = 'd_product'
-
-
-# slide picture
-class Slide(models.Model):
-    slide_id = models.IntegerField(primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    images = models.ImageField(upload_to='slide', verbose_name='slide picture')
-    sort = models.IntegerField(default=0)
-    create_date = models.DateTimeField(default=datetime.now)
-
-    def __str__(self):
-        return str(self.slide_id)
-
-    class Meta:
-        verbose_name = 'slide picture'
-        verbose_name_plural = 'slide pictures'
-        db_table = 'd_slide'

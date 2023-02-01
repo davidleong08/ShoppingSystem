@@ -12,8 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
     admin.site.index_title = "ShoppingSystem Management"
 
     # the attributes of showing in list
-    list_display = ['product_id', 'name', 'market_price', 'category', 'price', 'unit', 'amount', 'click_num', 'fav_num',
-                    'goods_desc', 'main_image', 'stock_num', 'createDate']
+    list_display = ['product_id', 'name', 'category', 'price', 'main_image', 'createDate', 'property1', 'property2',
+                    'sale_number', 'sale_amount', 'customer_rating', 'review', 'temporary_status']
     # search
     search_fields = ['product_id', 'name', 'category', 'createDate']
     # filtration
@@ -33,7 +33,7 @@ class ProductsCategoryAdmin(admin.ModelAdmin):
     admin.site.index_title = "ShoppingSystem Management"
 
     # the attributes of showing in list
-    list_display = ['category_id', 'name', 'level', 'sort', 'createDate']
+    list_display = ['category_id', 'name', 'createDate']
     # search
     search_fields = ['category_id', 'name']
     # filtration
@@ -46,20 +46,3 @@ class ProductsCategoryAdmin(admin.ModelAdmin):
     ordering = ['category_id']
 
 
-@admin.register(Slide)
-class SlideAdmin(admin.ModelAdmin):
-    admin.site.site_title = "ShoppingSystem Admin"
-    admin.site.site_header = "ShoppingSystem Admin"
-    admin.site.index_title = "ShoppingSystem Management"
-    # the attributes of showing in list
-    list_display = ['slide_id', 'product', 'images', 'sort', 'create_date']
-    # search
-    search_fields = ['slide_id']
-    # filtration
-    list_filter = ['slide_id']
-    # set the date selector
-    date_hierarchy = 'create_date'
-    # Set the amount of data displayed per page
-    list_per_page = 10
-    # Set the sort
-    ordering = ['slide_id']

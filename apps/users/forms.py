@@ -6,17 +6,18 @@ from apps.users.models import MyUser
 
 # mobile number validator
 def mobile_validate(value):
-    mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
+    mobile_re = re.compile(r'^0?(13|14|15|18|17)[0-9]{9}$')
     if not mobile_re.match(value):
         raise ValidationError('the formate of mobile number has some problems')
 
 
 # user register form
 class UserRegForm(forms.Form):
-    username = forms.CharField(label='username', min_length=6, widget=forms.widgets.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'please input username'}),
+    username = forms.CharField(label='username', min_length=6,
+                               widget=forms.widgets.TextInput(
+                                   attrs={'class': 'form-control', 'placeholder': 'please input username'}),
                                error_messages={'required': 'username cannot be empty',
-                                               'min_length': 'the length of username at least is 6 digit'}),
+                                               'min_length': 'the length of username at least is 6 digit'})
     password = forms.CharField(label="password", min_length=6, max_length=10,
                                widget=forms.widgets.PasswordInput(
                                    render_value=True,
@@ -25,12 +26,14 @@ class UserRegForm(forms.Form):
                                error_messages={'max_length': 'the max length of password is 10 digit',
                                                'required': 'password cannot be empty',
                                                'min_length': 'the length of password at least is 6 digit'})
-    re_password = {'max_length': 'the max length of password is 10 digit',
-                   'required': 'password cannot be empty',
-                   'min_length': 'the length of password at least is 6 digit'}
-    user_img = forms.ImageField(label="user_avatar", required=False, widget=forms.widgets.FileInput(
-        attrs={'class': 'form-control'}))
-    mobile = forms.IntegerField(label='mobile_number', validators=[mobile_validate], widget=forms.widgets.NumberInput(
+    re_password = forms.CharField(label="re_password", min_length=6, max_length=10,
+                                  widget=forms.widgets.PasswordInput(
+                                      attrs={"class": "form-control"}, render_value=True),
+                                  error_messages={
+                                      'max_length': 'the max length of password is 10 digit',
+                                      'required': 'password cannot be empty',
+                                      'min_length': 'the length of password at least is 6 digit'})
+    mobile = forms.CharField(label='mobile_number', validators=[mobile_validate], widget=forms.widgets.NumberInput(
         attrs={'class': 'form-control', 'placeholder': 'please input your mobile number'}),
                                 error_messages={'invalid': 'Please enter a valid bid'})
     email = forms.CharField(label='email', min_length=4, max_length=50, widget=forms.widgets.EmailInput(
@@ -38,7 +41,10 @@ class UserRegForm(forms.Form):
                             error_messages={
                                 'min_length': 'the length of email at least is 6 digit',
                                 'max_length': 'the max length of email is 64'
-                            }),
+                            })
+    vendor = forms.BooleanField(label='vendor', widget=forms.widgets.CheckboxInput(
+        attrs={'class': 'form-check-input'}
+    ))
 
     def clean_username(self):
         new_username = self.cleaned_data.get("username")
