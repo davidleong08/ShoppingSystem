@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from apps.users.forms import UserRegForm
 from apps.users.models import MyUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -63,4 +64,19 @@ def ajax_login_data(request):
     else:
         json_dict["code"] = 1004
         json_dict["msg"] = "the username or password is empty"
+    return JsonResponse(json_dict)
+
+
+def user_logout(request):
+    if request.user.is_authenticated:
+        return render(request, "user_logout.html")
+    else:
+        return redirect('login')
+
+
+def ajax_logout_data(request):
+    json_dict = {}
+    logout(request)
+    json_dict["code"] = 1000
+    json_dict["msg"] = "logout successful"
     return JsonResponse(json_dict)

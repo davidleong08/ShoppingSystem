@@ -22,4 +22,6 @@ urlpatterns = [
     path('user_reg/', views.user_register, name='register'),
     path('user_login/', views.user_login, name='login'),
     path('ajax_login_data/', views.ajax_login_data),
+    path('user_logout/', views.user_logout, name='logout'),
+    path('ajax_logout_data/', views.ajax_logout_data),
 ]

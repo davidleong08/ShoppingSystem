@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+    <title>logout</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <h1>Are you sure to logout</h1>
+    <button id="logout">Sure</button>
+    <div class="col-8">
+        <span id="info"></span>
+    </div>
+<script>
+    $("#logout").click(function () {
+        $.ajax({
+            url: "/ajax_logout_data/",
+            type: "GET",
+            success: function (data) {
+                    $("#info").html(data.msg)
+                },
+                error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+</script>
+</body>
