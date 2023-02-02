@@ -1,0 +1,15 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <title>HomePage</title>
+</head>
+<body>
+    <button><a href="{% url 'register' %}">register</a></button>
+    {% if request.user.is_authenticated %}
+        {{ request.user.username }}
+        <button><a href="{% url 'logout' %}">logout</a></button>
+        <button><a href="{% url 'change_password' %}">change password</a></button>
+    {% else %}
+        <button><a href="{% url 'login' %}">login</a></button>
+    {% endif %}
+</body>

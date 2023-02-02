@@ -35,7 +35,7 @@ class UserRegForm(forms.Form):
                                       'min_length': 'the length of password at least is 6 digit'})
     mobile = forms.CharField(label='mobile_number', validators=[mobile_validate], widget=forms.widgets.NumberInput(
         attrs={'class': 'form-control', 'placeholder': 'please input your mobile number'}),
-                                error_messages={'invalid': 'Please enter a valid bid'})
+                             error_messages={'invalid': 'Please enter a valid bid'})
     email = forms.CharField(label='email', min_length=4, max_length=50, widget=forms.widgets.EmailInput(
         attrs={'class': 'form-control', 'placeholder': 'please input email address'}),
                             error_messages={
@@ -67,3 +67,39 @@ class UserRegForm(forms.Form):
         for user in users:
             if user.email == new_email:
                 self.add_error("email", ValidationError("the email address has been existed"))
+
+
+class UserChangePasswordForm(forms.Form):
+    original_password = forms.CharField(label="original_password", min_length=6, max_length=10,
+                                        widget=forms.widgets.PasswordInput(
+                                            render_value=True,
+                                            attrs={"class": "form-control"},
+                                        ),
+                                        error_messages={'max_length': 'the max length of original password is 10 digit',
+                                                        'required': 'original password cannot be empty',
+                                                        'min_length': 'the length of original password at least is 6 digit'})
+
+    new_password = forms.CharField(label="new_password", min_length=6, max_length=10,
+                                   widget=forms.widgets.PasswordInput(
+                                       render_value=True,
+                                       attrs={"class": "form-control"},
+                                   ),
+                                   error_messages={'max_length': 'the max length of new password is 10 digit',
+                                                   'required': 'new password cannot be empty',
+                                                   'min_length': 'the length of new password at least is 6 digit'})
+
+    re_password = forms.CharField(label="re_password", min_length=6, max_length=10,
+                                  widget=forms.widgets.PasswordInput(
+                                      attrs={"class": "form-control"}, render_value=True),
+                                  error_messages={
+                                      'max_length': 'the max length of password is 10 digit',
+                                      'required': 'password cannot be empty',
+                                      'min_length': 'the length of password at least is 6 digit'})
+
+    def clean(self):
+        password = self.cleaned_data.get("new_password")
+        re_password = self.cleaned_data.get("re_password")
+        if password != re_password:
+            # raise forms.ValidationError("The two passwords are different")
+            self.add_error("re_password", ValidationError("The two passwords are different"))
+
