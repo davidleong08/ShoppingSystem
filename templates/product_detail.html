@@ -1,0 +1,15 @@
+{% load static %}
+
+<head>
+    <title>
+        products
+    </title>
+     <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+        {{ product.0.product_id }}
+        {{ product.0.name }}
+        {{ product.0.price }}
+        {{ product.0.main_image }}
+        <img src="/media/{{ img_url }}" alt="apple">
+</body>

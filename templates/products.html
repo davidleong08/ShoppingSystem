@@ -1,0 +1,16 @@
+{% load static %}
+<head>
+    <title>
+        products
+    </title>
+     <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    {% for product in products %}
+        <a  href="{% url 'product_detail' product.product_id %}">{{ product.product_id }}</a>
+        {{ product.name }}
+        {{ product.category.name }}
+        {{ product.category.category_id }}
+    {% endfor %}
+</body>

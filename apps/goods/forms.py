@@ -25,46 +25,50 @@ class ProductsCategoryInfo(forms.ModelForm):
 class ProductInfo(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'market_price', 'category', 'price', 'unit', 'amount', 'goods_desc', 'main_image',
-                  'stock_num', 'createDate']
+        fields = ['name', 'category', 'price', 'property1', 'property2', 'sale_number', 'sale_amount',
+                  'customer_rating', 'review', 'main_image', 'temporary_status', 'photo1', 'photo2', 'photo3', 'photo4',
+                  'createDate']
         labels = {
             "name": "product_name",
-            "market_price": "product_market_price",
             "category": "product_category",
             "price": "product_price",
-            "unit": "product_unit",
-            "amount": "product_amount",
-            "goods_desc": "product_description",
+            "property1": "property1",
+            "property2": "property2",
+            "sale_number": "sale_number",
+            "sale_amount": "sale_amount",
+            "customer_rating": "customer_rating",
+            "review": "review",
             "main_image": "product_main_image",
-            "stock_num": "product_stock_number",
+            "temporary_status": "temporary_status",
+            "photo1": "photo1",
+            "photo2": "photo2",
+            "photo3": "photo3",
+            "photo4": "photo4",
             "createDate": "product_createDate",
         }
-        widgets = {"main_image": forms.widgets.FileInput(attrs={
-            "class": "form-product-image"
-        }),
+        widgets = {
+            "main_image": forms.widgets.FileInput(attrs={
+                "class": "form-control"
+            }),
             "category": forms.widgets.Select(attrs={
-                "class": "form-product-category"
-            })}
+                "class": "form-control"
+            }),
+        }
         error_messages = {
             "name": {'required': 'the product name cannot be empty',
                      'max_length': 'the max length of product name is 50'},
-            "market_price": {'required': 'the product market price cannot be empty',
-                             'max_digits': 'the max digits of market price is 32',
-                             'decimal_places': 'the decimal place of market price is 8'},
             "category": {'required': 'the product category cannot be empty'},
             "price": {'required': 'the product price cannot be empty',
                       'max_digits': 'the max digits of product price is 32',
                       'decimal_places': 'the decimal place of product price is 8'},
-            "unit": {'required': 'the product unit cannot be empty',
-                     'max_length': 'the max length of product unit is 10',
-                     },
-            "amount": {'required': 'the product amount cannot be empty'},
-            "goods_desc": {'required': 'the product description cannot be empty',
-                           'max_length': 'the max length of goods description is 5000',
-                           },
-            "stock_num": {'required': 'the stock number of product cannot be empty'},
-            "createDate": {'required': 'the create date of product cannot be empty'}
-        }
+            "property1": {'required': 'the property1 of product cannot be empty',
+                          'max_length': 'the max length of property1 is 100'},
+            "property2": {'required': 'the property2 of product cannot be empty',
+                          'max_length': 'the max length of property2 is 100'},
+            "sale_number": {'required': 'the sale number of product cannot be empty'},
+            "sale_amount": {'required': 'the sale amount of product cannot be empty'},
+            "createDate": {'required': 'the create date of product cannot be empty'},
+        },
 
     def clean_name(self):
         new_product_name = self.cleaned_data.get('name')
@@ -72,4 +76,3 @@ class ProductInfo(forms.ModelForm):
         for product in products:
             if product.name == new_product_name:
                 self.add_error("name", ValidationError("the product name has been existed"))
-

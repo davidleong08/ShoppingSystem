@@ -38,10 +38,10 @@ class Product(models.Model):
         (4, "4"),
         (5, "5"),
     )
-    customer_rating = models.CharField(max_length=1, choices=rating_choice)
+    customer_rating = models.IntegerField(choices=rating_choice)
     review = models.TextField()
     temporary_status_choice = ((0, "out-of-stock"), (1, "normal"))
-    temporary_status = models.CharField(max_length=100, choices=temporary_status_choice)
+    temporary_status = models.IntegerField(choices=temporary_status_choice)
     photo1 = models.ImageField(upload_to="productImage")
     photo2 = models.ImageField(upload_to="productImage")
     photo3 = models.ImageField(upload_to="productImage")
