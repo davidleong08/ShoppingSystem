@@ -6,5 +6,6 @@ from shoppingSystem import settings
 urlpatterns = [
     path('', views.product_view, name='products'),
     path('<int:product_id>/', views.product_detail, name="product_detail"),
+    path('ajax_products/', views.ajax_products)
 ]
 

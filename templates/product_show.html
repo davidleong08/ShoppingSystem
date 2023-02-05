@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <meta charset="UTF-8">
+    <title>product add</title>
+</head>
+<body>
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.css' %}"></script>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">
+                            Product pattern <smal>list</smal>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 search-collapse">
+                <form id="search_form">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>category: </label>
+                                <select id="category_id">
+                                    <option selected value=''>please choose...</option>
+                                        {% for category in categorys %}
+                                            <option value="{{ category.category_id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                </select>
+                            </li>
+                            <li>
+                                <label>Product name: </label>
+                                <input type="text" id="product_name" name="product_name" value="" />
+                            </li>
+                            <li>
+                                <label>Status: </label>
+                                <select id="temporary_status" name="temporary_status">
+                                        <option value="0">out-of-stock</option>
+                                        <option value="1">normal</option>
+                                    </select>
+                            </li>
+                            <li>
+                                <a  class="btn btn-primary btn-rounded btn-sm" id="btn_search"><i class="fa fa-search"></i>Search</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.css' %}"></script>
+<script>
+    InitMainTable();
+    function InitMainTable() {
+        $('#bootstrap-table').bootstrapTable({
+            url: '/products/ajax_products/',
+            method: 'get',
+            toolbar:'#toolbar',
+            striped: true,
+            cache: false,
+            pagination: true,
+            sortable: false,
+            sortOrder: "asc",
+            queryParams: function (params) {
+                var temp = {
+                  page:(params.offset / params.limit) + 1,
+                  name: $("#product_name").val(),
+                  category: $("#category_id").val(),
+                  temporary_status: $("#temporary_status").val(),
+                };
+                return temp;
+            },
+            sidePagination: "server",
+            pageNumber: 1,
+            pageSize: 10,
+            pageList: [10, 25, 50, 100],
+            showColumns: true,
+            showRefresh: true,
+            uniqueID: "product_id",
+            columns: [{
+                checkbox: true,
+                visible: true,
+            }, {
+                field: 'name',
+                title: 'Product name'
+            }, {
+                field: 'temporary_status',
+                title: 'Temporary status',
+            }, {
+                field: 'category_id',
+                title: 'Category ID',
+            }, {
+                field: 'price',
+                title: 'Product price',
+            }, {
+                field: 'property1',
+                title: 'Product property1',
+            }, {
+                field: 'property2',
+                title: 'Product property2',
+            }, {
+                field: 'sale_number',
+                title: 'Sale number',
+            }, {
+                field: 'sale_amount',
+                title: 'Sale amount',
+            }, {
+                field: 'customer_rating',
+                title: 'Customer rating',
+            }, {
+                field: 'review',
+                title: 'Review',
+            }, {
+                field: 'createDate',
+                title: 'createDate',
+            }, {
+                title: 'operation',
+                field: 'product_id',
+                formatter: operation,
+            }
+            ]
+        });
+    }
+function operation(value, row, index ) {
+    var htm = "<button class='btn btn-primary btn-edit'>Change</button><button class='btn btn-danger btn-del'>Delete</button>"
+    return htm
+}
+$('#btn_search').click(function () {
+    $("#bootstrap-table").bootstrapTable('refresh', {
+        url: '/products/ajax_products/'
+    })
+})
+</script>
+</body>
+</html>

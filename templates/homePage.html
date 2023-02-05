@@ -9,6 +9,7 @@
         {{ request.user.username }}
         <button><a href="{% url 'logout' %}">logout</a></button>
         <button><a href="{% url 'change_password' %}">change password</a></button>
+        <button><a href="{% url 'products' %}">show products</a></button>
     {% else %}
         <button><a href="{% url 'login' %}">login</a></button>
     {% endif %}
