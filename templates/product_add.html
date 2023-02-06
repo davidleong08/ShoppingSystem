@@ -1,0 +1,134 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <title>add product</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <form novalidate action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.name.id_for_label }}" class="form-label">{{ form_obj.name.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.name }}
+                    <span class="help-block">{{ form_obj.errors.name.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.category.id_for_label }}" class="form-label">{{ form_obj.category.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.category }}
+                    <span class="help-block">{{ form_obj.errors.category.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.price.id_for_label }}" class="form-label">{{ form_obj.price.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.price }}
+                    <span class="help-block">{{ form_obj.errors.price.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property1.id_for_label }}" class="form-label">{{ form_obj.property1.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property1 }}
+                    <span class="help-block">{{ form_obj.errors.property1.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property2.id_for_label }}" class="form-label">{{ form_obj.property2.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property2 }}
+                    <span class="help-block">{{ form_obj.errors.property2.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property3.id_for_label }}" class="form-label">{{ form_obj.property3.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property3 }}
+                    <span class="help-block">{{ form_obj.errors.property3.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property4.id_for_label }}" class="form-label">{{ form_obj.property4.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property4 }}
+                    <span class="help-block">{{ form_obj.errors.property4.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property5.id_for_label }}" class="form-label">{{ form_obj.property5.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property5 }}
+                    <span class="help-block">{{ form_obj.errors.property5.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.property6.id_for_label }}" class="form-label">{{ form_obj.property6.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.property6 }}
+                    <span class="help-block">{{ form_obj.errors.property6.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.customer_rating.id_for_label }}" class="form-label">{{ form_obj.customer_rating.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.customer_rating }}
+                    <span class="help-block">{{ form_obj.errors.customer_rating.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.review.id_for_label }}" class="form-label">{{ form_obj.review.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.review }}
+                    <span class="help-block">{{ form_obj.errors.review.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.main_image.id_for_label }}" class="form-label">{{ form_obj.main_image.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.main_image }}
+                    <span class="help-block">{{ form_obj.errors.main_image.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.temporary_status.id_for_label }}" class="form-label">{{ form_obj.temporary_status.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.temporary_status }}
+                    <span class="help-block">{{ form_obj.errors.temporary_status.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo1.id_for_label}}" class="form-label">{{ form_obj.photo1.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo1 }}
+                    <span class="help-block">{{ form_obj.errors.photo1.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo2.id_for_label }}" class="form-label">{{ form_obj.photo2.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo2 }}
+                    <span class="help-block">{{ form_obj.errors.photo2.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo3.id_for_label }}" class="form-label">{{ form_obj.photo3.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo3 }}
+                    <span class="help-block">{{ form_obj.errors.photo3.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo4.id_for_label }}" class="form-label">{{ form_obj.photo4.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo4 }}
+                    <span class="help-block">{{ form_obj.errors.photo4.0 }}</span>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="submit" value="Add" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</body>

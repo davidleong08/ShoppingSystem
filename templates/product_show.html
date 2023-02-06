@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <h1 class="m-0">
-                            Product pattern <smal>list</smal>
+                            Product pattern <small>list</small>
                         </h1>
                     </div>
                 </div>
@@ -59,6 +59,13 @@
                         </ul>
                     </div>
                 </form>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <div class="btn-group-sm" id="toolbar" role="group">
+                    <a class="btn btn-success" href="{% url 'add_product' %}">
+                        <i class="fa fa-plus"></i> Add Product
+                    </a>
+                </div>
             </div>
             <table id="bootstrap-table"></table>
         </div>
@@ -117,6 +124,18 @@
             }, {
                 field: 'property2',
                 title: 'Product property2',
+            }, {
+                field: 'property3',
+                title: 'Product property3',
+            }, {
+                field: 'property4',
+                title: 'Product property4',
+            }, {
+                 field: 'property5',
+                 title: 'Product property5',
+            }, {
+                 field: 'property6',
+                 title: 'Product property6',
             }, {
                 field: 'sale_number',
                 title: 'Sale number',
