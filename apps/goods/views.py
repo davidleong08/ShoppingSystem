@@ -67,6 +67,8 @@ def product_add(request):
         return render(request, 'product_add.html', {'form_obj': form_obj})
     if request.method == "POST":
         form_obj = ProductInfo(request.POST, request.FILES)
+        print(request.POST)
+        print(request.FILES)
         if form_obj.is_valid():
             name = request.POST.get("name", '')
             category = request.POST.get("category", '')
@@ -79,12 +81,12 @@ def product_add(request):
             property6 = request.POST.get("property6", '')
             customer_rating = request.POST.get("customer_rating", '')
             review = request.POST.get("review", '')
-            main_image = request.POST.get("main_image", '')
+            main_image = request.FILES.get("main_image", '')
             temporary_status = request.POST.get("temporary_status", '')
-            photo1 = request.POST.get("photo1", '')
-            photo2 = request.POST.get("photo2", '')
-            photo3 = request.POST.get("photo3", '')
-            photo4 = request.POST.get("photo4", '')
+            photo1 = request.FILES.get("photo1", '')
+            photo2 = request.FILES.get("photo2", '')
+            photo3 = request.FILES.get("photo3", '')
+            photo4 = request.FILES.get("photo4", '')
             products = Product.objects.filter(name=name, price=price)
             if products:
                 info = "the product has been existed"
@@ -109,6 +111,7 @@ def product_add(request):
                 form_obj.cleaned_data["photo2"] = photo2
                 form_obj.cleaned_data["photo3"] = photo3
                 form_obj.cleaned_data["photo4"] = photo4
+                print(form_obj.cleaned_data)
                 product = Product.objects.create(**form_obj.cleaned_data)
                 info = "create product successful"
                 return redirect('products')

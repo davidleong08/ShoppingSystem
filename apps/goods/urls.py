@@ -1,6 +1,7 @@
+from django.conf.urls.static import static
 from django.urls import path
 from apps.goods import views
-
+from shoppingSystem import settings
 
 urlpatterns = [
     path('', views.vendor_product_view, name='products'),

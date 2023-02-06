@@ -75,7 +75,7 @@ class ProductInfo(forms.ModelForm):
                 "class": "form-control"
             }),
             "main_image": forms.widgets.FileInput(attrs={
-                "class": "form-control"
+                "class": 'custom-file-input'
             }),
             "category": forms.widgets.Select(attrs={
                 "class": "form-control"
@@ -87,16 +87,16 @@ class ProductInfo(forms.ModelForm):
                 "class": "form-control"
             }),
             "photo1": forms.widgets.FileInput(attrs={
-                "class": "form-control"
+                "class": 'custom-file-input'
             }),
             "photo2": forms.widgets.FileInput(attrs={
-                "class": "form-control"
+                "class": 'custom-file-input'
             }),
             "photo3": forms.widgets.FileInput(attrs={
-                "class": "form-control"
+                "class": 'custom-file-input'
             }),
             "photo4": forms.widgets.FileInput(attrs={
-                "class": "form-control"
+                "class": 'custom-file-input'
             }),
             "review": forms.widgets.Textarea(attrs={
                 "class": "form-control"
