@@ -103,3 +103,6 @@ class UserChangePasswordForm(forms.Form):
             # raise forms.ValidationError("The two passwords are different")
             self.add_error("re_password", ValidationError("The two passwords are different"))
 
+
+
+

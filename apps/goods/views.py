@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from apps.goods.models import Product, ProductsCategory
 from django.http import JsonResponse
-from apps.goods.forms import ProductInfo
+from apps.goods.forms import ProductInfo,ProductInfoChange
 
 
 # Create your views here.
@@ -119,3 +119,71 @@ def product_add(request):
             errors = form_obj.errors
             print(errors)
             return render(request, "product_add.html", {"form_obj": form_obj, "errors": errors})
+
+
+def product_change(request, product_id):
+    product = Product.objects.filter(product_id=product_id)
+    print(product[0])
+    if request.method == "GET":
+        form_obj = ProductInfoChange()
+        return render(request, "product_add.html", {"form_obj": form_obj})
+    if request.method == "POST":
+        form_obj = ProductInfoChange(request.POST, request.FILES)
+        name = request.POST.get("name", '')
+        category = request.POST.get("category", '')
+        price = request.POST.get("price", '')
+        property1 = request.POST.get("property1", '')
+        property2 = request.POST.get("property2", '')
+        property3 = request.POST.get("property3", '')
+        property4 = request.POST.get("property4", '')
+        property5 = request.POST.get("property5", '')
+        property6 = request.POST.get("property6", '')
+        customer_rating = request.POST.get("customer_rating", '')
+        review = request.POST.get("review", '')
+        main_image = request.FILES.get("main_image", '')
+        temporary_status = request.POST.get("temporary_status", '')
+        photo1 = request.FILES.get("photo1", '')
+        photo2 = request.FILES.get("photo2", '')
+        photo3 = request.FILES.get("photo3", '')
+        photo4 = request.FILES.get("photo4", '')
+        form_obj.cleaned_data = {}
+        if name:
+            form_obj.cleaned_data["name"] = name
+        if category:
+            form_obj.cleaned_data["category"] = ProductsCategory.objects.filter(category_id=category)[0]
+        if price:
+            form_obj.cleaned_data["price"] = price
+        if property1:
+            form_obj.cleaned_data["property1"] = property1
+        if property2:
+            form_obj.cleaned_data["property2"] = property2
+        if property3:
+            form_obj.cleaned_data["property3"] = property3
+        if property4:
+            form_obj.cleaned_data["property4"] = property4
+        if property5:
+            form_obj.cleaned_data["property5"] = property5
+        if property6:
+            form_obj.cleaned_data["property6"] = property6
+        if customer_rating:
+            form_obj.cleaned_data["customer_rating"] = customer_rating
+        if review:
+            form_obj.cleaned_data["review"] = review
+        if main_image:
+            form_obj.cleaned_data["main_image"] = main_image
+        if temporary_status:
+            form_obj.cleaned_data["temporary_status"] = temporary_status
+        if photo1:
+            form_obj.cleaned_data["photo1"] = photo1
+        if photo2:
+            form_obj.cleaned_data["photo2"] = photo2
+        if photo3:
+            form_obj.cleaned_data["photo3"] = photo3
+        if photo4:
+            form_obj.cleaned_data["photo4"] = photo4
+        try:
+            product.update(**form_obj.cleaned_data)
+            return redirect("products")
+        except Exception as e:
+            print(e)
+
