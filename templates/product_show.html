@@ -4,13 +4,15 @@
 <head>
 
     <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.js' %}"></script>
     <meta charset="UTF-8">
     <title>product add</title>
 </head>
 <body>
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.css' %}"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -71,6 +73,57 @@
         </div>
     </div>
 </section>
+ <div class="container mt-3">
+</div>
+
+<!-- 模态框 -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title">模态框标题</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- 模态框内容 -->
+      <div class="modal-body">
+        模态框内容..
+      </div>
+
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- header -->
+      <div class="modal-header">
+        <h4 class="modal-title">模态框标题</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- content -->
+      <div class="modal-body">
+        模态框内容..
+      </div>
+
+      <!-- bottom -->
+      <div class="modal-footer">
+          <button type="button" class="btn-success"><a href=""></a></button>
+        <button type="button" class="btn " data-bs-dismiss="modal">cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'plugins/bootstrap-table/bootstrap-table.min.js' %}"></script>
@@ -162,7 +215,30 @@
 function operation(value, row, index ) {
     var product_id = row.product_id
     var htm = `<button class='btn btn-primary btn-edit'><a class="btn"  href='/products/product_change/${product_id}'>Change</a></button>` +
-        `<button class='btn btn-danger btn-del'>Delete</button>`
+        `<button type="button" class="btn btn-secondary"><a href="/products/change_photo/${product_id}">Change photo</a></button>`+
+        `<button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Delete</button>` +
+        `
+<!-- message box -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title">delete check</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- 模态框内容 -->
+      <div class="modal-body">
+        Are you sure delete it
+      </div>
+
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success"><a href="/products/product_delete/${product_id}">Yes</a></button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancel</button>
+      </div>`
     return htm
 }
 $('#btn_search').click(function () {

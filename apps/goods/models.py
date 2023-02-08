@@ -46,10 +46,10 @@ class Product(models.Model):
     review = models.TextField()
     temporary_status_choice = ((0, "out-of-stock"), (1, "normal"))
     temporary_status = models.IntegerField(choices=temporary_status_choice)
-    photo1 = models.ImageField(upload_to="productImage")
-    photo2 = models.ImageField(upload_to="productImage")
-    photo3 = models.ImageField(upload_to="productImage")
-    photo4 = models.ImageField(upload_to="productImage")
+    photo1 = models.ImageField(upload_to="productImage", blank=True)
+    photo2 = models.ImageField(upload_to="productImage", blank=True)
+    photo3 = models.ImageField(upload_to="productImage", blank=True)
+    photo4 = models.ImageField(upload_to="productImage", blank=True)
     createDate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

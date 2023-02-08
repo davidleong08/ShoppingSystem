@@ -1,0 +1,45 @@
+{% load static %}
+
+<head>
+    <title>
+        products
+    </title>
+     <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <ul>
+            <li>{{ product.product_id }}</li>
+            <li>{{ product.name }}</li>
+            {% if product.photo1|length is 0 %}
+                <div>
+                    <span>the photo1 is empty, you can add photo1</span>
+                    <div class="mb-3 mt-3">
+                    <label for="{{ form_obj.photo1.id_for_label}}" class="form-label">{{ form_obj.photo1.label }}</label>
+                    <div class="col-sm-offset-10">
+                        {{ form_obj.photo1 }}
+                        <span class="help-block">{{ form_obj.errors.photo1.0 }}</span>
+                    </div>
+                    </div>
+                </div>
+            {% else %}
+                <img src="/media/{{ product.photo1 }}" alt="photo1">
+            {% endif %}
+            {% if product.photo2|length is 0 %}
+                <button type="button">add photo1</button>
+            {% else %}
+                <img src="/media/{{ product.photo2 }}" alt="photo2">
+            {% endif %}
+            {% if product.photo3|length is 0 %}
+                <button type="button">add photo3</button>
+            {% else %}
+                <img src="/media/{{ product.photo3 }}" alt="photo3">
+            {% endif %}
+            {% if product.photo4|length is 0 %}
+                <button type="button">add photo4</button>
+            {% else %}
+                <img src="/media/{{ product.photo4 }}" alt="photo1">
+            {% endif %}
+        </ul>
+    </form>
+</body>

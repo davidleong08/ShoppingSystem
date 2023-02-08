@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from apps.goods.models import Product, ProductsCategory
 from django.http import JsonResponse
-from apps.goods.forms import ProductInfo,ProductInfoChange
+from apps.goods.forms import ProductInfo, ProductInfoChange
 
 
 # Create your views here.
@@ -186,4 +186,18 @@ def product_change(request, product_id):
             return redirect("products")
         except Exception as e:
             print(e)
+
+
+def product_delete(request, product_id):
+    Product.objects.filter(product_id=product_id).delete()
+    return redirect("products")
+
+
+def product_change_photo(request, product_id):
+    if request.method == "GET":
+        form_obj = ProductInfoChange()
+        product = Product.objects.filter(product_id=product_id)[0]
+        return render(request, "product_change_photo.html", {"product": product, "form_obj": form_obj})
+    if request.method == "POST":
+        form_obj = ProductInfoChange(request.POST, request.FILES)
 
