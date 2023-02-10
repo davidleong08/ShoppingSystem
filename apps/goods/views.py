@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from apps.goods.models import Product, ProductsCategory
 from django.http import JsonResponse
-from apps.goods.forms import ProductInfo, ProductInfoChange
+from apps.goods.forms import ProductInfo, ProductInfoChange, ProductPhotoChange
+import os
+
+from shoppingSystem import settings
 
 
 # Create your views here.
@@ -23,11 +26,9 @@ def product_detail(request, product_id):
 
 
 def ajax_products(request):
-    print(request.GET)
     product_name = request.GET.get("name", '')
     category_id = request.GET.get("category_id", '')
     temporary_status = request.GET.get("temporary_status", '')
-    print(product_name, temporary_status)
     page_size = 2
     page = int(request.GET["page"])
     total = Product.objects.filter(name=product_name,
@@ -57,7 +58,6 @@ def ajax_products(request):
         })
 
     datas = {"total": total, "rows": rows}
-    print(datas)
     return JsonResponse(datas, safe=False, json_dumps_params={'ensure_ascii': False, "indent": 4})
 
 
@@ -67,8 +67,6 @@ def product_add(request):
         return render(request, 'product_add.html', {'form_obj': form_obj})
     if request.method == "POST":
         form_obj = ProductInfo(request.POST, request.FILES)
-        print(request.POST)
-        print(request.FILES)
         if form_obj.is_valid():
             name = request.POST.get("name", '')
             category = request.POST.get("category", '')
@@ -111,7 +109,6 @@ def product_add(request):
                 form_obj.cleaned_data["photo2"] = photo2
                 form_obj.cleaned_data["photo3"] = photo3
                 form_obj.cleaned_data["photo4"] = photo4
-                print(form_obj.cleaned_data)
                 product = Product.objects.create(**form_obj.cleaned_data)
                 info = "create product successful"
                 return redirect('products')
@@ -123,7 +120,6 @@ def product_add(request):
 
 def product_change(request, product_id):
     product = Product.objects.filter(product_id=product_id)
-    print(product[0])
     if request.method == "GET":
         form_obj = ProductInfoChange()
         return render(request, "product_add.html", {"form_obj": form_obj})
@@ -195,9 +191,72 @@ def product_delete(request, product_id):
 
 def product_change_photo(request, product_id):
     if request.method == "GET":
-        form_obj = ProductInfoChange()
+        form_obj = ProductPhotoChange()
         product = Product.objects.filter(product_id=product_id)[0]
         return render(request, "product_change_photo.html", {"product": product, "form_obj": form_obj})
     if request.method == "POST":
-        form_obj = ProductInfoChange(request.POST, request.FILES)
+        form_obj = ProductPhotoChange(request.POST, request.FILES)
+        product = Product.objects.filter(product_id=product_id)[0]
+        old_main_image = product.main_image
+        old_photo1 = product.photo1
+        old_photo2 = product.photo2
+        old_photo3 = product.photo3
+        old_photo4 = product.photo4
+        old_photo_list = [old_main_image, old_photo1, old_photo2, old_photo3, old_photo4]
+        main_image = request.FILES.get("main_image", '')
+        photo1 = request.FILES.get("photo1", '')
+        photo2 = request.FILES.get("photo2", '')
+        photo3 = request.FILES.get("photo3", '')
+        photo4 = request.FILES.get("photo4", '')
+        if form_obj.is_valid():
+            for i in range(5):
+                if old_photo_list[i]:
+                    image_path = old_photo_list[i].path
+                    if os.path.exists(image_path):
+                        os.remove(image_path)
+            if main_image:
+                product.main_image = main_image
+                product.save()
+            if photo1:
+                product.photo1 = photo1
+                product.save()
+            if photo2:
+                product.photo2 = photo2
+                product.save()
+            if photo3:
+                product.photo3 = photo3
+                product.save()
+            if photo4:
+                product.photo4 = photo4
+                product.save()
+        return redirect("products")
 
+
+def product_ajax_photo_change(request):
+    main_image = request.POST.get('main_image', '')
+    photo1 = request.POST.get('photo1', '')
+    photo2 = request.POST.get('photo2', '')
+    photo3 = request.POST.get('photo3', '')
+    photo4 = request.POST.get('photo4', '')
+    product_id = request.POST.get('product_id', '')
+    if main_image == "-1":
+        os.remove(Product.objects.filter(product_id=product_id)[0].main_image.path)
+        Product.objects.filter(product_id=product_id).update(main_image='')
+        return redirect("products")
+    if photo1 == "-1":
+        os.remove(Product.objects.filter(product_id=product_id)[0].photo1.path)
+        Product.objects.filter(product_id=product_id).update(photo1='')
+        return redirect("products")
+    if photo2 == "-1":
+        os.remove(Product.objects.filter(product_id=product_id)[0].photo2.path)
+        Product.objects.filter(product_id=product_id).update(photo2='')
+        return redirect("products")
+    if photo3 == "-1":
+        os.remove(Product.objects.filter(product_id=product_id)[0].photo3.path)
+        Product.objects.filter(product_id=product_id).update(photo3='')
+        return redirect("products")
+    if photo4 == "-1":
+        os.remove(Product.objects.filter(product_id=product_id)[0].photo4.path)
+        Product.objects.filter(product_id=product_id).update(photo4='')
+        return redirect("products")
+    return redirect("products")
