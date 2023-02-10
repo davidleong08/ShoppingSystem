@@ -13,5 +13,29 @@
         {{ product.0.category.name }}
         {{ product.0.property1 }}
         {{ product.0.property2 }}
-        <img src="/media/{{ img_url }}" alt="apple">
+        {% if  product.0.main_image|length is 0 %}
+            <span>the main image is empty</span>
+        {% else %}
+            <img src="/media/{{ img_url }}" alt="main_image">
+        {% endif %}
+        {% if product.0.photo1|length is 0 %}
+            <span> the photo1 is empty</span>
+        {% else %}
+            <img src="/media/{{ product.0.photo1 }}" alt="photo1">
+        {% endif %}
+        {% if product.0.photo2|length is 0 %}
+            <span> the photo2 is empty</span>
+        {% else %}
+            <img src="/media/{{ product.0.photo2 }}" alt="photo2">
+        {% endif %}
+        {% if product.0.photo3|length is 0 %}
+            <span>the photo3 is empty</span>
+        {% else %}
+            <img src="/media/{{ product.0.photo3 }}" alt="photo3">
+        {% endif  %}
+        {% if product.0.photo4|length is 0 %}
+            <span>the photo4 is empty</span>
+        {% else %}
+            <img src="/media/{{ product.0.photo4 }}" alt="photo4">
+        {% endif %}
 </body>
