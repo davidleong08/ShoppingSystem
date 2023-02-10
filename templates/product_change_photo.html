@@ -5,12 +5,27 @@
         products
     </title>
      <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 </head>
 <body>
     <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <ul>
             <li>{{ product.product_id }}</li>
             <li>{{ product.name }}</li>
+            {% if  product.main_image|length is 0 %}
+                <span> the main_image is empty, you can add main_image</span>
+                <div class="mb-3 mt-3">
+                    <label for="{{ form_obj.main_image.id_for_label }}" class="form-label">{{ form_obj.main_image.label }}</label>
+                    <div class="col-sm-offset-10">
+                        {{ form_obj.main_image }}
+                        <span class="help-block">{{ form_obj.errors.main_image.0 }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <img src="/media/{{ product.main_image }}" alt="main_image">
+                <button type="submit" id="main_image">Remove main_image</button>
+            {% endif %}
             {% if product.photo1|length is 0 %}
                 <div>
                     <span>the photo1 is empty, you can add photo1</span>
@@ -24,22 +39,140 @@
                 </div>
             {% else %}
                 <img src="/media/{{ product.photo1 }}" alt="photo1">
+                <button type="submit" id="photo1">Remove photo1</button>
             {% endif %}
             {% if product.photo2|length is 0 %}
-                <button type="button">add photo1</button>
+                <span>the photo2 is empty, you can add photo2</span>
+                <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo2.id_for_label }}" class="form-label">{{ form_obj.photo2.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo2 }}
+                    <span class="help-block">{{ form_obj.errors.photo2.0 }}</span>
+                </div>
+                </div>
             {% else %}
                 <img src="/media/{{ product.photo2 }}" alt="photo2">
+                <button type="submit" id="photo2">Remove photo2</button>
             {% endif %}
             {% if product.photo3|length is 0 %}
-                <button type="button">add photo3</button>
+                <span>the photo3 is empty, you can add photo3</span>
+                <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo3.id_for_label }}" class="form-label">{{ form_obj.photo3.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo3 }}
+                    <span class="help-block">{{ form_obj.errors.photo3.0 }}</span>
+                </div>
+                </div>
             {% else %}
                 <img src="/media/{{ product.photo3 }}" alt="photo3">
+                <button type="submit" id="photo3">Remove photo3</button>
             {% endif %}
             {% if product.photo4|length is 0 %}
-                <button type="button">add photo4</button>
+                <span>the photo4 is empty, you can add photo4</span>
+                <div class="mb-3 mt-3">
+                <label for="{{ form_obj.photo4.id_for_label }}" class="form-label">{{ form_obj.photo4.label }}</label>
+                <div class="col-sm-offset-10">
+                    {{ form_obj.photo4 }}
+                    <span class="help-block">{{ form_obj.errors.photo4.0 }}</span>
+                </div>
+                </div>
             {% else %}
                 <img src="/media/{{ product.photo4 }}" alt="photo1">
+                <button type="submit" id="photo4">Remove photo4</button>
             {% endif %}
+        <input type="submit" value="Save" class="btn btn-success">
         </ul>
     </form>
+<script>
+    $("#photo1").click(function () {
+        var photo1 = -1
+        $.ajax({
+            url: '/products/ajax_change_photo/',
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val(),
+                photo1: photo1,
+                product_id: {{ product.product_id }},
+            },
+            success: function (data) {
+                    console.log(data)
+                },
+            error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+    $("#photo2").click(function () {
+        var photo2 = -1
+        $.ajax({
+            url: '/products/ajax_change_photo/',
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val(),
+                photo2: photo2,
+                product_id: {{ product.product_id }},
+            },
+            success: function (data) {
+                    console.log(data)
+                },
+            error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+    $("#photo3").click(function () {
+        var photo3 = -1
+        $.ajax({
+            url: '/products/ajax_change_photo/',
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val(),
+                photo3: photo3,
+                product_id: {{ product.product_id }},
+            },
+            success: function (data) {
+                    console.log(data)
+                },
+            error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+    $("#photo4").click(function () {
+        var photo4 = -1
+        $.ajax({
+            url: '/products/ajax_change_photo/',
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val(),
+                photo4: photo4,
+                product_id: {{ product.product_id }},
+            },
+            success: function (data) {
+                    console.log(data)
+                },
+            error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+    $("#main_image").click(function () {
+        var main_image = -1
+        $.ajax({
+            url: '/products/ajax_change_photo/',
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val(),
+                main_image: main_image,
+                product_id: {{ product.product_id }},
+            },
+            success: function (data) {
+                    console.log(data)
+                },
+            error: function (jqXHR, textStatus, err) {
+                    console.log(arguments)
+                }
+        })
+    })
+</script>
 </body>

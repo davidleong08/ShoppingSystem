@@ -132,7 +132,6 @@ class ProductInfo(forms.ModelForm):
                 self.add_error("name", ValidationError("the product name has been existed"))
 
 
-
 class ProductInfoChange(forms.ModelForm):
     class Meta:
         model = Product
@@ -235,3 +234,32 @@ class ProductInfoChange(forms.ModelForm):
             "createDate": {'required': 'the create date of product cannot be empty'},
         },
 
+
+class ProductPhotoChange(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['main_image', 'photo1', 'photo2', 'photo3', 'photo4']
+        labels = {
+            "main_image": "main_image",
+            "photo1": "photo1",
+            "photo2": "photo2",
+            "photo3": "photo3",
+            "photo4": "photo4",
+        }
+        widgets = {
+            "main_image": forms.widgets.FileInput(attrs={
+                "class": 'custom-file-input'
+            }),
+            "photo1": forms.widgets.FileInput(attrs={
+                "class": 'custom-file-input'
+            }),
+            "photo2": forms.widgets.FileInput(attrs={
+                "class": 'custom-file-input'
+            }),
+            "photo3": forms.widgets.FileInput(attrs={
+                "class": 'custom-file-input'
+            }),
+            "photo4": forms.widgets.FileInput(attrs={
+                "class": 'custom-file-input'
+            }),
+        }
