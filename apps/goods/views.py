@@ -195,40 +195,53 @@ def product_change_photo(request, product_id):
         product = Product.objects.filter(product_id=product_id)[0]
         return render(request, "product_change_photo.html", {"product": product, "form_obj": form_obj})
     if request.method == "POST":
-        form_obj = ProductPhotoChange(request.POST, request.FILES)
+        ProductPhotoChange(request.POST, request.FILES)
         product = Product.objects.filter(product_id=product_id)[0]
         old_main_image = product.main_image
         old_photo1 = product.photo1
         old_photo2 = product.photo2
         old_photo3 = product.photo3
         old_photo4 = product.photo4
-        old_photo_list = [old_main_image, old_photo1, old_photo2, old_photo3, old_photo4]
         main_image = request.FILES.get("main_image", '')
         photo1 = request.FILES.get("photo1", '')
         photo2 = request.FILES.get("photo2", '')
         photo3 = request.FILES.get("photo3", '')
         photo4 = request.FILES.get("photo4", '')
-        if form_obj.is_valid():
-            for i in range(5):
-                if old_photo_list[i]:
-                    image_path = old_photo_list[i].path
-                    if os.path.exists(image_path):
-                        os.remove(image_path)
-            if main_image:
-                product.main_image = main_image
-                product.save()
-            if photo1:
-                product.photo1 = photo1
-                product.save()
-            if photo2:
-                product.photo2 = photo2
-                product.save()
-            if photo3:
-                product.photo3 = photo3
-                product.save()
-            if photo4:
-                product.photo4 = photo4
-                product.save()
+        if main_image:
+            if old_main_image:
+                image_path = old_main_image.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            product.main_image = main_image
+            product.save()
+        if photo1:
+            if old_photo1:
+                image_path = old_photo1.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            product.photo1 = photo1
+            product.save()
+        if photo2:
+            if old_photo2:
+                image_path = old_photo2.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            product.photo2 = photo2
+            product.save()
+        if photo3:
+            if old_photo3:
+                image_path = old_photo3.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            product.photo3 = photo3
+            product.save()
+        if photo4:
+            if old_photo4:
+                image_path = old_photo4.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            product.photo4 = photo4
+            product.save()
         return redirect("products")
 
 
