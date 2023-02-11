@@ -16,6 +16,7 @@
             url: "/ajax_logout_data/",
             type: "GET",
             success: function (data) {
+                    setTimeout(() =>location.reload(), 3000)
                     $("#info").html(data.msg)
                 },
                 error: function (jqXHR, textStatus, err) {

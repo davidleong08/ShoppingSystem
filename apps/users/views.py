@@ -17,6 +17,7 @@ def user_register(request):
             uname = request.POST.get("username", '')
             users = MyUser.objects.filter(username=uname)
             email = request.POST.get("email", '')
+            password = request.POST.get("password", '')
             if users:
                 info = 'the user has been existed'
                 return render(request, 'user_register.html', {"form_obj": form_obj, "info": info})
@@ -27,9 +28,10 @@ def user_register(request):
                 form_obj.cleaned_data["is_staff"] = 1
                 form_obj.cleaned_data["is_superuser"] = 0
                 # new user
-                user = MyUser.objects.create_user(**form_obj.cleaned_data)
-                info = 'register successful, please login'
-                return render(request, 'user_register.html', {"form_obj": form_obj, "info": info})
+                MyUser.objects.create_user(**form_obj.cleaned_data)
+                user_login = authenticate(username=uname, password=password)
+                login(request, user_login)
+                return redirect("homePage")
         else:
             errors = form_obj.errors
             print(errors)
@@ -78,7 +80,7 @@ def ajax_logout_data(request):
     json_dict = {}
     logout(request)
     json_dict["code"] = 1000
-    json_dict["msg"] = "logout successful"
+    json_dict["msg"] = "logout successful, please waite 3 seconds"
     return JsonResponse(json_dict)
 
 

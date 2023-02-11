@@ -42,9 +42,6 @@ class UserRegForm(forms.Form):
                                 'min_length': 'the length of email at least is 6 digit',
                                 'max_length': 'the max length of email is 64'
                             })
-    vendor = forms.BooleanField(label='vendor', widget=forms.widgets.CheckboxInput(
-        attrs={'class': 'form-check-input'}
-    ))
 
     def clean_username(self):
         new_username = self.cleaned_data.get("username")

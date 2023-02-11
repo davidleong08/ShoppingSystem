@@ -5,24 +5,31 @@
 </head>
 <body>
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-    <form action="" method="post">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id="username" name="username" placeholder="username">
+    {% if request.user.is_authenticated %}
+        <div class="col-8">
+            <label for="agreeTerms">You have been login, after 3 seconds the page will go to the homepage</label>
         </div>
-        <div class="input-group mb-3">
-            <input type="password" class="form-control" id="password" name="password" placeholder="password">
-        </div>
-        <div class="row">
-            <div class="col-8">
-                <label for="agreeTerms" id="info"></label>
+        <script>setTimeout(function(){ window.location = "{% url 'homePage' %}"; },3000);</script>
+    {% else %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="username" name="username" placeholder="username">
             </div>
-            <div class="col-4">
-                <input id="login" type="button" class="btn btn-success" value="login">
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="password">
             </div>
-            <button><a href="{% url 'logout' %}">logout</a></button>
-        </div>
-    </form>
+            <div class="row">
+                <div class="col-4">
+                    <input id="login" type="button" class="btn btn-success" value="login">
+                    <div class="col-8">
+                        <label for="agreeTerms" id="info"></label>
+                    </div>
+                </div>
+                <button><a href="{% url 'logout' %}">logout</a></button>
+            </div>
+        </form>
+    {% endif %}
     <script>
         $("#login").click(function () {
             $.ajax({
@@ -34,6 +41,7 @@
                     "csrfmiddlewaretoken": $("[name = 'csrfmiddlewaretoken']").val()
                 },
                 success: function (data) {
+                    location.reload();
                     $("#info").html(data.msg)
                 },
                 error: function (jqXHR, textStatus, err) {
