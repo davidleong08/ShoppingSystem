@@ -12,5 +12,11 @@
         {{ product.name }}
         {{ product.category.name }}
         {{ product.category.category_id }}
+        {{ product.price }}
+        {% if  product.main_image|length is 0 %}
+            <span>the main image is empty</span>
+        {% else %}
+            <img src="/media/{{ product.main_image }}" alt="main_image">
+        {% endif %}
     {% endfor %}
 </body>
