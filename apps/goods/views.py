@@ -3,13 +3,24 @@ from apps.goods.models import Product, ProductsCategory
 from django.http import JsonResponse
 from apps.goods.forms import ProductInfo, ProductInfoChange, ProductPhotoChange
 import os
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from shoppingSystem import settings
 
 
 # Create your views here.
 def user_product_view(request):
     products = Product.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 2)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+
     return render(request, "products.html", {"products": products})
 
 
@@ -17,6 +28,7 @@ def vendor_product_view(request):
     products = Product.objects.all()
     categorys = ProductsCategory.objects.all()
     return render(request, "product_show.html", {"products": products, "categorys": categorys})
+
 
 
 def product_detail(request, product_id):
@@ -44,10 +56,10 @@ def ajax_products(request):
             "temporary_status": product.temporary_status,
             "category_id": product.category.name,
             "price": product.price,
-            "property1": product.property1,
-            "property2": product.property2,
-            "property3": product.property3,
-            "property4": product.property4,
+            "publication_date": product.publication_date,
+            "publisher": product.publisher,
+            "language": product.language,
+            "ISBN_13": product.ISBN_13,
             "property5": product.property5,
             "property6": product.property6,
             "sale_number": product.sale_number,
@@ -71,10 +83,10 @@ def product_add(request):
             name = request.POST.get("name", '')
             category = request.POST.get("category", '')
             price = request.POST.get("price", '')
-            property1 = request.POST.get("property1", '')
-            property2 = request.POST.get("property2", '')
-            property3 = request.POST.get("property3", '')
-            property4 = request.POST.get("property4", '')
+            publication_date = request.POST.get("publication_date", '')
+            publisher = request.POST.get("publisher", '')
+            language = request.POST.get("language", '')
+            ISBN_13 = request.POST.get("ISBN_13", '')
             property5 = request.POST.get("property5", '')
             property6 = request.POST.get("property6", '')
             customer_rating = request.POST.get("customer_rating", '')
@@ -93,10 +105,10 @@ def product_add(request):
                 form_obj.cleaned_data["name"] = name
                 form_obj.cleaned_data["category"] = ProductsCategory.objects.filter(category_id=category)[0]
                 form_obj.cleaned_data["price"] = price
-                form_obj.cleaned_data["property1"] = property1
-                form_obj.cleaned_data["property2"] = property2
-                form_obj.cleaned_data["property3"] = property3
-                form_obj.cleaned_data["property4"] = property4
+                form_obj.cleaned_data["publication_date"] = publication_date
+                form_obj.cleaned_data["publisher"] = publisher
+                form_obj.cleaned_data["language"] = language
+                form_obj.cleaned_data["ISBN_13"] = ISBN_13
                 form_obj.cleaned_data["property5"] = property5
                 form_obj.cleaned_data["property6"] = property6
                 form_obj.cleaned_data["sale_number"] = 0
@@ -128,10 +140,10 @@ def product_change(request, product_id):
         name = request.POST.get("name", '')
         category = request.POST.get("category", '')
         price = request.POST.get("price", '')
-        property1 = request.POST.get("property1", '')
-        property2 = request.POST.get("property2", '')
-        property3 = request.POST.get("property3", '')
-        property4 = request.POST.get("property4", '')
+        publication_date = request.POST.get("publication_date", '')
+        publisher = request.POST.get("publisher", '')
+        language = request.POST.get("language", '')
+        ISBN_13 = request.POST.get("ISBN_13", '')
         property5 = request.POST.get("property5", '')
         property6 = request.POST.get("property6", '')
         customer_rating = request.POST.get("customer_rating", '')
@@ -149,14 +161,14 @@ def product_change(request, product_id):
             form_obj.cleaned_data["category"] = ProductsCategory.objects.filter(category_id=category)[0]
         if price:
             form_obj.cleaned_data["price"] = price
-        if property1:
-            form_obj.cleaned_data["property1"] = property1
-        if property2:
-            form_obj.cleaned_data["property2"] = property2
-        if property3:
-            form_obj.cleaned_data["property3"] = property3
-        if property4:
-            form_obj.cleaned_data["property4"] = property4
+        if publication_date:
+            form_obj.cleaned_data["publication_date"] = publication_date
+        if publisher:
+            form_obj.cleaned_data["publisher"] = publisher
+        if language:
+            form_obj.cleaned_data["language"] = language
+        if ISBN_13:
+            form_obj.cleaned_data["ISBN_13"] = ISBN_13
         if property5:
             form_obj.cleaned_data["property5"] = property5
         if property6:

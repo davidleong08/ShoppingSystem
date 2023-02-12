@@ -11,8 +11,8 @@
         {{ product.0.name }}
         {{ product.0.price }}
         {{ product.0.category.name }}
-        {{ product.0.property1 }}
-        {{ product.0.property2 }}
+        {{ product.0.publication_date }}
+        {{ product.0.publisher }}
         {% if  product.0.main_image|length is 0 %}
             <span>the main image is empty</span>
         {% else %}

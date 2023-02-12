@@ -25,7 +25,7 @@ class ProductsCategoryInfo(forms.ModelForm):
 class ProductInfo(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'category', 'price', 'property1', 'property2', 'property3', 'property4', 'property5',
+        fields = ['name', 'category', 'price', 'publication_date', 'publisher', 'language', 'ISBN_13', 'property5',
                   'property6', 'customer_rating', 'review', 'main_image',
                   'temporary_status', 'photo1',
                   'photo2', 'photo3', 'photo4',
@@ -34,10 +34,10 @@ class ProductInfo(forms.ModelForm):
             "name": "name",
             "category": "product_category",
             "price": "product_price",
-            "property1": "property1",
-            "property2": "property2",
-            "property3": "property3",
-            "property4": "property4",
+            "publication_date": "publication_date",
+            "publisher": "publisher",
+            "language": "language",
+            "ISBN_13": "ISBN_13",
             "property5": "property5",
             "property6": "property6",
             "customer_rating": "customer_rating",
@@ -56,16 +56,16 @@ class ProductInfo(forms.ModelForm):
             "price": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property1": forms.widgets.TextInput(attrs={
+            "publication_date": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property2": forms.widgets.TextInput(attrs={
+            "publisher": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property3": forms.widgets.TextInput(attrs={
+            "language": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property4": forms.widgets.TextInput(attrs={
+            "ISBN_13": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
             "property5": forms.widgets.TextInput(attrs={
@@ -109,14 +109,14 @@ class ProductInfo(forms.ModelForm):
             "price": {'required': 'the product price cannot be empty',
                       'max_digits': 'the max digits of product price is 32',
                       'decimal_places': 'the decimal place of product price is 8'},
-            "property1": {'required': 'the property1 of product cannot be empty',
-                          'max_length': 'the max length of property1 is 5000'},
-            "property2": {'required': 'the property2 of product cannot be empty',
-                          'max_length': 'the max length of property2 is 5000'},
-            "property3": {'required': 'the property3 of product cannot be empty',
-                          'max_length': 'the max length of property3 is 5000'},
-            "property4": {'required': 'the property4 of product cannot be empty',
-                          'max_length': 'the max length of property4 is 5000'},
+            "publication_date": {'required': 'the publication_date of product cannot be empty',
+                          'max_length': 'the max length of publication_date is 5000'},
+            "publisher": {'required': 'the publisher of product cannot be empty',
+                          'max_length': 'the max length of publisher is 5000'},
+            "language": {'required': 'the language of product cannot be empty',
+                          'max_length': 'the max length of language is 5000'},
+            "ISBN_13": {'required': 'the ISBN_13 of product cannot be empty',
+                          'max_length': 'the max length of ISBN_13 is 5000'},
             "property5": {'required': 'the property5 of product cannot be empty',
                           'max_length': 'the max length of property5 is 5000'},
             "property6": {'required': 'the property6 of product cannot be empty',
@@ -135,7 +135,7 @@ class ProductInfo(forms.ModelForm):
 class ProductInfoChange(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'category', 'price', 'property1', 'property2', 'property3', 'property4', 'property5',
+        fields = ['name', 'category', 'price', 'publication_date', 'publisher', 'language', 'ISBN_13', 'property5',
                   'property6', 'customer_rating', 'review', 'main_image',
                   'temporary_status', 'photo1',
                   'photo2', 'photo3', 'photo4',
@@ -144,10 +144,10 @@ class ProductInfoChange(forms.ModelForm):
             "name": "name",
             "category": "product_category",
             "price": "product_price",
-            "property1": "property1",
-            "property2": "property2",
-            "property3": "property3",
-            "property4": "property4",
+            "publication_date": "publication_date",
+            "publisher": "publisher",
+            "language": "language",
+            "ISBN_13": "ISBN_13",
             "property5": "property5",
             "property6": "property6",
             "customer_rating": "customer_rating",
@@ -166,16 +166,16 @@ class ProductInfoChange(forms.ModelForm):
             "price": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property1": forms.widgets.TextInput(attrs={
+            "publication_date": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property2": forms.widgets.TextInput(attrs={
+            "publisher": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property3": forms.widgets.TextInput(attrs={
+            "language": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
-            "property4": forms.widgets.TextInput(attrs={
+            "ISBN_13": forms.widgets.TextInput(attrs={
                 "class": "form-control"
             }),
             "property5": forms.widgets.TextInput(attrs={
@@ -219,14 +219,14 @@ class ProductInfoChange(forms.ModelForm):
             "price": {'required': 'the product price cannot be empty',
                       'max_digits': 'the max digits of product price is 32',
                       'decimal_places': 'the decimal place of product price is 8'},
-            "property1": {'required': 'the property1 of product cannot be empty',
-                          'max_length': 'the max length of property1 is 5000'},
-            "property2": {'required': 'the property2 of product cannot be empty',
-                          'max_length': 'the max length of property2 is 5000'},
-            "property3": {'required': 'the property3 of product cannot be empty',
-                          'max_length': 'the max length of property3 is 5000'},
-            "property4": {'required': 'the property4 of product cannot be empty',
-                          'max_length': 'the max length of property4 is 5000'},
+            "publication_date": {'required': 'the publication_date of product cannot be empty',
+                          'max_length': 'the max length of publication_date is 5000'},
+            "publisher": {'required': 'the publisher of product cannot be empty',
+                          'max_length': 'the max length of publisher is 5000'},
+            "language": {'required': 'the language of product cannot be empty',
+                          'max_length': 'the max length of language is 5000'},
+            "ISBN_13": {'required': 'the ISBN_13 of product cannot be empty',
+                          'max_length': 'the max length of ISBN_13 is 5000'},
             "property5": {'required': 'the property5 of product cannot be empty',
                           'max_length': 'the max length of property5 is 5000'},
             "property6": {'required': 'the property6 of product cannot be empty',

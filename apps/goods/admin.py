@@ -12,8 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
     admin.site.index_title = "ShoppingSystem Management"
 
     # the attributes of showing in list
-    list_display = ['product_id', 'name', 'category', 'price', 'main_image', 'createDate', 'property1', 'property2',
-                    'property3', 'property4', 'property5', 'property6',
+    list_display = ['product_id', 'name', 'category', 'price', 'main_image', 'createDate', 'publication_date', 'publisher',
+                    'language', 'ISBN_13', 'property5', 'property6',
                     'sale_number', 'sale_amount', 'customer_rating', 'review', 'temporary_status']
     # search
     search_fields = ['product_id', 'name', 'category', 'createDate']
